@@ -1,11 +1,5 @@
 import argparse
 
-def checkArguments(parser, arguments):
-    if not any((arguments.url, arguments.print)):
-        errMsg = "missing a mandatory option (-u, --url, -p, --print). "
-        errMsg += "Use -h for basic\n"
-        parser.error(errMsg)
-
 def initOption():
     # Initialize parser with a short description
     parser = argparse.ArgumentParser(description='Check the security headers of a website.')
@@ -18,8 +12,5 @@ def initOption():
 
     # Parse argument
     args = parser.parse_args()
-
-    # Check arguments
-    checkArguments(parser, args)
 
     return parser, args
