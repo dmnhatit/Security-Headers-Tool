@@ -57,7 +57,7 @@ def initOption():
     target = parser.add_argument_group("Target")
     target.add_argument('-u', '--url', help='target url')
     option = parser.add_argument_group("Option")
-    option.add_argument('-p', '--print' choices=['alert', 'raw'], help='information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all', default='all')
+    option.add_argument('-p', '--print', choices=['alert', 'raw'], help='information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all', default='all')
 
     # Parse argument
     args = parser.parse_args()
