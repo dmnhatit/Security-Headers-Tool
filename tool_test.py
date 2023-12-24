@@ -14,10 +14,10 @@ import argparse
 
 def checkOption(parser, arguments):
     if not arguments.u:
-        parser.error("Argument -u expected one argument")
+        return "Argument -u expected one argument"
     if not arguments.p:
-        parser.error("Argument -p expected one argument")
-    return False
+        return "Argument -p expected one argument"
+    return None
 
 def alertHeaders(url, headers):
     #missing
@@ -63,7 +63,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     #check argument
-    checkOption(parser, args)
+    option_error = checkOption(args)
+    if option_error:
+        parser.error(option_error)
 
     try:
         checkHeader(args.u, args.p)
