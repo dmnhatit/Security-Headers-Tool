@@ -12,14 +12,14 @@ import requests
 import sys
 import argparse
 
-def checkOption(arguments):
+class ArgumentMissingError(Exception):
+    pass
+
+def checkArguments(arguments):
     if not arguments.u:
-        print("Argument -u expected one argument")
-        return True
+        raise ArgumentMissingError("Argument -u expected one argument")
     if not arguments.p:
-        print("Argument -p expected one argument")
-        return True
-    return False
+        raise ArgumentMissingError("Argument -p expected one argument")
 
 def alertHeaders(url, headers):
     #missing
@@ -44,9 +44,9 @@ def checkHeader(url, option):
     #fectch header
     headers = res.headers
 
-    if option=="a":
+    if option=="alert":
         alertHeaders(url, headers)
-    elif option=="r":
+    elif option=="raw":
         rawHeaders(url, headers)
     elif option=="all":
         alertHeaders(url, headers)
@@ -59,14 +59,14 @@ if __name__ == '__main__':
 
     # Add positional and optional arguments
     parser.add_argument('-u', help='target url')
-    parser.add_argument('-p', help='information will be printed, "a" - Alerts about headers, "r" - Information about raw headers, default is all', default='all')
-
+    parser.add_argument('-p', help='information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all', default='all')
 
     try:
         # Parse argument
         args = parser.parse_args()
+        checkArguments(args)
         checkHeader(args.u, args.p)
-    except argparse.ArgumentError as e:
-        print(f"Missing required argument: {e}")
+    except ArgumentMissingError as e:
+        print(f"Error: {e}")
     except requests.exceptions.MissingSchema:
         print("Invalid URL")
