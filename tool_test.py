@@ -52,21 +52,25 @@ def checkHeader(url, option):
         alertHeaders(url, headers)
         rawHeaders(url, headers)
 
-
-if __name__ == '__main__':
+def initOption():
     # Initialize parser with a short description
     parser = argparse.ArgumentParser(description='Check the security headers of a website.')
 
     # Add positional and optional arguments
     parser.add_argument('-u', help='target url')
-    parser.add_argument('-p', help='information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all', default='all')
+    parser.add_argument('-p', choices=['alert', 'raw'], help='information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all', default='all')
+
+    # Parse argument
+    args = parser.parse_args()
+
+    return args
+
+if __name__ == '__main__':
 
     try:
-        # Parse argument
-        args = parser.parse_args()
-        checkArguments(args)
+        args = initOption()
         checkHeader(args.u, args.p)
-    except ArgumentMissingError as e:
-        print(f"Error: {e}")
     except requests.exceptions.MissingSchema:
         print("Invalid URL")
+    except argparse.ArgumentError as e:
+        print("Argument -{e} expected one argument")
