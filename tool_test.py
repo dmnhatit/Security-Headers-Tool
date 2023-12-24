@@ -13,9 +13,9 @@ import sys
 import argparse
 
 def checkArguments(parser, arguments):
-    if not arguments.u:
+    if not arguments.url:
         parser.exit(1, message="Argument -u expected one argument")
-    if not arguments.p:
+    if not arguments.print:
         parser.exit(1, message="Argument -p expected one argument")
 
 def alertHeaders(url, headers):
