@@ -61,13 +61,15 @@ if __name__ == '__main__':
     parser.add_argument('-u', help='target url')
     parser.add_argument('-p', help='information will be printed, "a" - Alerts about headers, "r" - Information about raw headers, default is all', default='all')
 
-    # Parse argument
-    args = parser.parse_args()
 
-    if checkOption(args):
-        print("Pleas try again!")
-    else:
-        try:
-            checkHeader(args.u, args.p)
-        except requests.exceptions.MissingSchema:
-            print("Invalid URL")
+    try:
+        # Parse argument
+        args = parser.parse_args()
+        checkHeader(args.u, args.p)
+    except requests.exceptions.MissingSchema:
+        print("Invalid URL")
+    except argparse.ArgumentError as e:
+        if '-u' in str(e):
+            parser.error('Argument -u expected one argument')
+        if '-p' in str(e):
+            parser.error('Argument -p expected one argument')
