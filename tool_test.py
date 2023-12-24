@@ -12,6 +12,22 @@ import requests
 import sys
 import argparse
 
+def alertHeaders(url, headers):
+    #missing
+    print("Warnings:")
+    if 'x-frame-options' in headers:
+        #warning
+        if headers['x-frame-options'] == 'allow-from':
+            print("The 'allow-from' directive of the X-Frame-Options header potentially permits untrusted websites to embed iframes and perform clickjacking.")
+    else:
+        print("X-Frame-Options tells the browser whether you want to allow your site to be framed or not. By preventing a browser from framing your site you can defend against attacks like clickjacking. Recommended value 'X-Frame-Options: SAMEORIGIN'.")
+
+def rawHeaders(url, headers):
+    #raw headers
+    print("Raw Headers:")
+    for key, value in headers.items():
+        print(key, " : ", value)
+
 def checkHeader(url, option):
     #send HEAD request to fetch header
     res = requests.head(url)
@@ -20,19 +36,13 @@ def checkHeader(url, option):
     headers = res.headers
 
     if option=="a":
-        #missing
-        print("Warnings:")
-        if 'x-frame-options' in headers:
-            #warning
-            if headers['x-frame-options'] == 'allow-from':
-                print("The 'allow-from' directive of the X-Frame-Options header potentially permits untrusted websites to embed iframes and perform clickjacking.")
-        else:
-            print("X-Frame-Options tells the browser whether you want to allow your site to be framed or not. By preventing a browser from framing your site you can defend against attacks like clickjacking. Recommended value 'X-Frame-Options: SAMEORIGIN'.")
+        alertHeaders(url, headers)
     elif option=="r":
-        #raw headers
-        print("Raw Headers:")
-        for key, value in headers.items():
-            print(key, " : ", value)
+        rawHeaders(url, headers)
+    elif option=="all":
+        alertHeaders(url, headers)
+        rawHeaders(url, headers)
+
 
 if __name__ == '__main__':
     # Initialize parser with a short description
