@@ -12,11 +12,14 @@ import requests
 import sys
 import argparse
 
+class ArgumentError(Exception):
+    pass
+
 def checkOption(parser, arguments):
     if not arguments.u:
-        parser.error("Argument -u expected one argument")
+        raise ArgumentError("Argument -u expected one argument")
     if not arguments.p:
-        parser.error("Argument -p expected one argument")
+        raise parser.error("Argument -p expected one argument")
 
 def alertHeaders(url, headers):
     #missing
@@ -61,10 +64,10 @@ if __name__ == '__main__':
     # Parse argument
     args = parser.parse_args()
 
-    #check argument
-    checkOption(parser, args)
-
     try:
+        checkOption(args)
         checkHeader(args.u, args.p)
+    except ArgumentError as e:
+        parser.error(str(e))
     except requests.exceptions.MissingSchema:
         print("Invalid URL")
