@@ -19,7 +19,7 @@ from parse.cmdline import initOption
 from parse.banner import logo
 
 if __name__ == '__main__':
-    logo()
+    # logo()
     try:
         parser, args = initOption()
         checkHeader(args.url, args.print)
