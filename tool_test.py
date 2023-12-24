@@ -12,14 +12,11 @@ import requests
 import sys
 import argparse
 
-class ArgumentMissingError(Exception):
-    pass
-
-def checkArguments(arguments):
+def checkArguments(parser, arguments):
     if not arguments.u:
-        raise ArgumentMissingError("Argument -u expected one argument")
+        parser.exit(1, message="Argument -u expected one argument")
     if not arguments.p:
-        raise ArgumentMissingError("Argument -p expected one argument")
+        parser.exit(1, message="Argument -p expected one argument")
 
 def alertHeaders(url, headers):
     #missing
@@ -57,20 +54,23 @@ def initOption():
     parser = argparse.ArgumentParser(description='Check the security headers of a website.')
 
     # Add positional and optional arguments
-    parser.add_argument('-u', help='target url')
-    parser.add_argument('-p', choices=['alert', 'raw'], help='information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all', default='all')
+    target = parser.add_argument_group("Target")
+    target.add_argument('-u', '--url', help='target url')
+    option = parser.add_argument_group("Option")
+    option.add_argument('-p', '--print' choices=['alert', 'raw'], help='information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all', default='all')
 
     # Parse argument
     args = parser.parse_args()
 
-    return args
+    # Check arguments
+    checkArguments(parser, args)
+
+    return parser, args
 
 if __name__ == '__main__':
 
     try:
-        args = initOption()
+        parser, args = initOption()
         checkHeader(args.u, args.p)
     except requests.exceptions.MissingSchema:
         print("Invalid URL")
-    except argparse.ArgumentError as e:
-        print("Argument -{e} expected one argument")
