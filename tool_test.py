@@ -15,8 +15,10 @@ import argparse
 def checkOption(arguments):
     if not arguments.u:
         print("Argument -u expected one argument")
+        return True
     if not arguments.p:
-        print("Argument -u expected one argument")
+        print("Argument -p expected one argument")
+        return True
 
 def alertHeaders(url, headers):
     #missing
@@ -62,8 +64,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     try:
+        if checkOption(args):
+            raise
         checkHeader(args.u, args.p)
     except requests.exceptions.MissingSchema:
         print("Invalid URL")
-    except argparse.ArgumentError as e:
-        checkOption(args)
