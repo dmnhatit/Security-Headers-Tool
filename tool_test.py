@@ -59,5 +59,7 @@ if __name__ == '__main__':
         checkHeader(args.u, args.p)
     except requests.exceptions.MissingSchema:
         print("Invalid URL")
-
+    except argparse.ArgumentError as e:
+        if '-p' in str(e):
+            parser.error('Argument -p expected one argument')
 
