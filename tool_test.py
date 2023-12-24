@@ -69,7 +69,4 @@ if __name__ == '__main__':
     except requests.exceptions.MissingSchema:
         print("Invalid URL")
     except argparse.ArgumentError as e:
-        if '-u' in str(e):
-            parser.error('Argument -u expected one argument')
-        if '-p' in str(e):
-            parser.error('Argument -p expected one argument')
+        print("hehe")
