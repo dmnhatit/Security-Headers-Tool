@@ -61,5 +61,5 @@ if __name__ == '__main__':
         print("Invalid URL")
     except argparse.ArgumentError as e:
         if '-p' in str(e):
-            parser.error('Argument -p expected one argument')
+            print('Argument -p expected one argument')
 
