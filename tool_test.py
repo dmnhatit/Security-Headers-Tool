@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
     try:
         # Parse argument
-        args = parser.parse_known_args()
+        args = parser.parse_args()
         checkHeader(args.u, args.p)
     except argparse.ArgumentError as e:
         print(f"Missing required argument: {e}")
