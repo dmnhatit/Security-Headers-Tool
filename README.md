@@ -13,9 +13,7 @@ Target:
 
 Option:
 
-  -p {alert,raw}, --print {alert,raw}
-
-                        information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all
+  -p {alert,raw}, --print {alert,raw} information will be printed, "alert" - Alerts about headers, "raw" - Information about raw headers, default is all
 
 Reference Documents
 
