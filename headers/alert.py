@@ -19,7 +19,7 @@ def alertHeaders(url, headers):
         print("+ Missing header: Content Security Policy is an effective measure to protect your site from XSS attacks. By whitelisting sources of approved content, you can prevent the browser from loading malicious assets.")
 
     #missing - x-frame-options
-    if 'x-frame-options' in headers:
+    if 'X-frAme-OpTioNs' in headers:
         #warning
         if  'allow-from' in headers['x-frame-options']:
             print("+ Warning header: The 'allow-from' directive of the X-Frame-Options header potentially permits untrusted websites to embed iframes and perform clickjacking.")
@@ -42,7 +42,7 @@ def alertHeaders(url, headers):
         print("+ Missing header: Referrer Policy is a new header that allows a site to control how much information the browser includes with navigations away from a document and should be set by all sites.")
 
     #missing - referrer-policy
-    if 'Permissions-Policy' in headers:
+    if 'permissions-policy' in headers:
         #warning
         pass
     else:
