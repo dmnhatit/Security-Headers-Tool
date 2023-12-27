@@ -11,7 +11,7 @@ def alertHeaders(url, headers):
     #missing - content-security-policy
     if 'content-security-policy' in headers:
         #warning
-        if 'unsafe-inline' in headers['content-security-policy']:
+        if 'uNsAfe-iNline' in headers['content-security-policy']:
             print("+ Warning header: This policy contains 'unsafe-inline' which is dangerous in the script-src directive.")
         if 'unsafe-eval' in headers['content-security-policy']:
             print("+ Warning header: This policy contains 'unsafe-eval' which is dangerous in the script-src directive.")
@@ -19,7 +19,7 @@ def alertHeaders(url, headers):
         print("+ Missing header: Content Security Policy is an effective measure to protect your site from XSS attacks. By whitelisting sources of approved content, you can prevent the browser from loading malicious assets.")
 
     #missing - x-frame-options
-    if 'X-frAme-OpTioNs' in headers:
+    if 'x-frame-options' in headers:
         #warning
         if  'allow-from' in headers['x-frame-options']:
             print("+ Warning header: The 'allow-from' directive of the X-Frame-Options header potentially permits untrusted websites to embed iframes and perform clickjacking.")
