@@ -11,9 +11,11 @@ def alertHeaders(url, headers):
     #missing - content-security-policy
     if 'content-security-policy' in headers:
         #warning
-        if 'usafe-inline' in str.lower(headers['content-security-policy']):
+        if "script-src 'unsafe-inline' 'unsafe-eval'" in str.lower(headers['content-security-policy']):
+            print("+ Warning header: This policy contains 'unsafe-inline' which is dangerous in the script-src directive. This policy contains 'unsafe-eval' which is dangerous in the script-src directive.")
+        if 'script-src unsafe-inline' in str.lower(headers['content-security-policy']):
             print("+ Warning header: This policy contains 'unsafe-inline' which is dangerous in the script-src directive.")
-        if 'unsafe-eval' in str.lower(headers['content-security-policy']):
+        if 'script-src unsafe-eval' in str.lower(headers['content-security-policy']):
             print("+ Warning header: This policy contains 'unsafe-eval' which is dangerous in the script-src directive.")
     else:
         print("+ Missing header: Content Security Policy is an effective measure to protect your site from XSS attacks. By whitelisting sources of approved content, you can prevent the browser from loading malicious assets.")
@@ -36,7 +38,7 @@ def alertHeaders(url, headers):
     #missing - referrer-policy
     if 'referrer-policy' in headers:
         #warning
-        if  'strict-origin-when-cross-origin' not in str.lower(headers['referrer-policy']):
+        if  'strict-origin-when-cross-origin' not in headers['referrer-policy']:
             print("+ Warning header: The 'strict-origin-when-cross-origin' directive helps users prevent the disclosure of sensitive information.")
     else:
         print("+ Missing header: Referrer Policy is a new header that allows a site to control how much information the browser includes with navigations away from a document and should be set by all sites.")
