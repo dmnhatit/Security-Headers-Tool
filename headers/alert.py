@@ -3,7 +3,7 @@ def alertHeaders(url, headers):
     #missing - strict-transport-security
     if 'strict-transport-security' in headers:
         #warning
-        if 'includeSubDomains' not in headers['strict-transport-security']:
+        if 'includesubdomains' not in str.lower(headers['strict-transport-security']):
             print("+ Warning header: Cookies can be manipulated from sub-domains, so omitting the 'includeSubDomains' option permits a broad range of cookie-related attacks that HSTS would otherwise prevent by requiring a valid certificate for a subdomain.")
     else:
         print("+ Missing header: HTTP Strict Transport Security is an excellent feature to support on your site and strengthens your implementation of TLS by getting the User Agent to enforce the use of HTTPS. Recommended value \"Strict-Transport-Security: max-age=31536000; includeSubDomains\".")
@@ -11,9 +11,9 @@ def alertHeaders(url, headers):
     #missing - content-security-policy
     if 'content-security-policy' in headers:
         #warning
-        if 'uNsAfe-iNline' in headers['content-security-policy']:
+        if 'usafe-inline' in str.lower(headers['content-security-policy']):
             print("+ Warning header: This policy contains 'unsafe-inline' which is dangerous in the script-src directive.")
-        if 'unsafe-eval' in headers['content-security-policy']:
+        if 'unsafe-eval' in str.lower(headers['content-security-policy']):
             print("+ Warning header: This policy contains 'unsafe-eval' which is dangerous in the script-src directive.")
     else:
         print("+ Missing header: Content Security Policy is an effective measure to protect your site from XSS attacks. By whitelisting sources of approved content, you can prevent the browser from loading malicious assets.")
@@ -21,7 +21,7 @@ def alertHeaders(url, headers):
     #missing - x-frame-options
     if 'x-frame-options' in headers:
         #warning
-        if  'allow-from' in headers['x-frame-options']:
+        if  'allow-from' in str.lower(headers['x-frame-options']):
             print("+ Warning header: The 'allow-from' directive of the X-Frame-Options header potentially permits untrusted websites to embed iframes and perform clickjacking.")
     else:
         print("+ Missing header: X-Frame-Options tells the browser whether you want to allow your site to be framed or not. By preventing a browser from framing your site you can defend against attacks like clickjacking. Recommended value 'X-Frame-Options: SAMEORIGIN'.")
@@ -36,7 +36,7 @@ def alertHeaders(url, headers):
     #missing - referrer-policy
     if 'referrer-policy' in headers:
         #warning
-        if  'strict-origin-when-cross-origin' not in headers['referrer-policy']:
+        if  'strict-origin-when-cross-origin' not in str.lower(headers['referrer-policy']):
             print("+ Warning header: The 'strict-origin-when-cross-origin' directive helps users prevent the disclosure of sensitive information.")
     else:
         print("+ Missing header: Referrer Policy is a new header that allows a site to control how much information the browser includes with navigations away from a document and should be set by all sites.")
