@@ -13,9 +13,9 @@ def alertHeaders(url, headers):
         #warning
         if "script-src 'unsafe-inline' 'unsafe-eval'" in str.lower(headers['content-security-policy']):
             print("+ Warning header: This policy contains 'unsafe-inline' which is dangerous in the script-src directive. This policy contains 'unsafe-eval' which is dangerous in the script-src directive.")
-        elif 'script-src unsafe-inline' in str.lower(headers['content-security-policy']):
+        elif "script-src 'unsafe-inline'" in str.lower(headers['content-security-policy']):
             print("+ Warning header: This policy contains 'unsafe-inline' which is dangerous in the script-src directive.")
-        elif 'script-src unsafe-eval' in str.lower(headers['content-security-policy']):
+        elif "script-src 'unsafe-eval'" in str.lower(headers['content-security-policy']):
             print("+ Warning header: This policy contains 'unsafe-eval' which is dangerous in the script-src directive.")
     else:
         print("+ Missing header: Content Security Policy is an effective measure to protect your site from XSS attacks. By whitelisting sources of approved content, you can prevent the browser from loading malicious assets.")
